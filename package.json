@@ -1,6 +1,22 @@
 {
+  "name": "opencode",
+  "version": "0.1.0",
+  "description": "An AI coding agent CLI",
+  "type": "module",
+  "bin": {
+    "opencode": "./cli.ts"
+  },
+  "scripts": {
+    "dev": "bun cli.ts",
+    "build": "bun build cli.ts --outdir dist --target node",
+    "start": "node dist/cli.js"
+  },
   "dependencies": {
-    "@types/commander": "^2.12.5",
-    "chalk": "^5.6.2"
+    "chalk": "^5.6.2",
+    "commander": "^15.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.2",
+    "typescript": "^6.0.3"
   }
 }
