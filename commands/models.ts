@@ -12,17 +12,17 @@ export const modelsCommand = new Command("models")
     try {
       const data = await getModels(options.refresh)
       const providers = Object.values(data)
-      const filtered = options.provider ? providers.filter((p) => {
+      const filtered = options.provider ? providers.filter((p) =>
         p.id === options.provider ||
-          p.name.toLowerCase() === options.provider?.toLowerCase()
-      }) : providers
+        p.name.toLowerCase() === options.provider?.toLowerCase()
+      ) : providers
 
       if (filtered.length === 0) {
         ui.warn(`No provider found matching "${options.provider}"`)
         return
       }
 
-      for (const provider of providers) {
+      for (const provider of filtered) {
         ui.header(`\n${provider.name} (${provider.id})`)
         for (const model of Object.values(provider.models)) {
           const tags = [

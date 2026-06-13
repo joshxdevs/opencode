@@ -10,7 +10,7 @@ const CACHE_TTL_MS = 24 * 60 * 60 * 1000
 export interface modelInfo {
     id: string;
     name: string;
-    famil?: string;
+    family?: string;
     reasoning?: boolean;
     tool_call?: boolean;
     limit?: { context: number; output: number };
@@ -33,7 +33,7 @@ export function isCacheStale(): boolean {
 }
 
 export async function getModels(forceRefresh = false): Promise<ModelsData> {
-    if (!forceRefresh && isCacheStale()) {
+    if (!forceRefresh && !isCacheStale()) {
         const cached = readConfigFile<ModelsData>(CACHE_FILE)
         if (cached) return cached
     }
@@ -46,7 +46,7 @@ export async function getModels(forceRefresh = false): Promise<ModelsData> {
     } catch {
         const cached = readConfigFile<ModelsData>(CACHE_FILE)
         if (cached) {
-            console.log("Offline - using chached models data")
+            console.log("Offline - using cached models data")
             return cached
         }
         throw new Error("No models data available. Check your internet connection.")

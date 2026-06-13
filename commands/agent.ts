@@ -6,7 +6,13 @@ export const agentCommand = new Command("agent")
   .requiredOption("-p, --prompt <text>", "The task prompt for the agent")
   .option("--model <model>", "Override the active model for this run")
   .option("--cwd <path>", "Working directory of the agent", process.cwd())
-  .action(async (_options) => {
-
+  .action(async (options: { prompt: string; model?: string; cwd: string }) => {
+    try {
+      const { runAgent } = await import("../lib/agent/loop")
+      await runAgent({ prompt: options.prompt, model: options.model, cwd: options.cwd })
+    } catch (err) {
+      ui.error((err as Error).message)
+      process.exit(1)
+    }
   })
 
