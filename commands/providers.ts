@@ -16,6 +16,7 @@ providerCommand.command("list")
             return
         }
         ui.header("Configured Providers:\n")
+        console.log("provider        API Key")
         for (const name of names) {
             const key = store[name].api_key
             const masked = key.length > 8 ? `${key.slice(0, 4)}...${key.slice(-4)}` : "****"
