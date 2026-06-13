@@ -43,7 +43,7 @@ export async function runTool(
             if (!existsSync(fp)) return `Error: file not found - ${fp}`
             return readFileSync(fp, "utf-8")
         }
-        case "list_file": {
+        case "list_files": {
             const dp = resolve(cwd, (args.path as string) ?? ".")
             if (!existsSync(dp)) return `Error: directory not found - ${dp}`
             return readdirSync(dp, { withFileTypes: true })

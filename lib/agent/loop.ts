@@ -1,7 +1,8 @@
 import { ui } from "../../ui/output"
 import { getConfig } from "../config"
 import { getProvider } from "../providers"
-import { runTool } from "./tools"
+import { runTool, tools } from "./tools"
+import { GoogleGenerativeAI, SchemaType } from "@google/generative-ai";
 
 
 export interface AgentOptions {
@@ -60,17 +61,44 @@ export async function runAgent(opts: AgentOptions): Promise<void> {
 }
 
 async function callModel(
-    _modelId: string,
-    _apiKey: string,
-    _messages: Array<{ role: string, content: string }>
-): Promise<{
-    type: "text" | "tool_call";
-    content: string;
-    tool?: string;
-    args?: Record<string, unknown>;
-}> {
-    return {
-        type: "text",
-        content: "Placeholder response. Waiting to connect a real model.",
-    };
+    modelId: string,
+    apiKey: string,
+    messages: Array<{ role: string; content: string }>
+): Promise<{ type: "text" | "tool_call"; content: string; tool?: string; args?: Record<string, unknown> }> {
+    const [, geminiModel] = modelId.split("/");
+    const genAI = new GoogleGenerativeAI(apiKey);
+    const model = genAI.getGenerativeModel({
+        model: geminiModel,
+        tools: [
+            {
+                functionDeclarations: tools.map((t) => ({
+                    name: t.name,
+                    description: t.description,
+                    parameters: {
+                        type: SchemaType.OBJECT,
+                        properties: t.parameters as any,
+                        required: Object.keys(t.parameters),
+                    },
+                })),
+            },
+        ],
+    });
+    const history = messages.slice(0, -1).map((m) => ({
+        role: m.role === "assistant" ? "model" : "user",
+        parts: [{ text: m.content }],
+    }));
+    const chat = model.startChat({ history });
+    const last = messages[messages.length - 1];
+    const result = await chat.sendMessage(last.content);
+    const response = result.response;
+    const fnCall = response.functionCalls()?.[0];
+    if (fnCall) {
+        return {
+            type: "tool_call",
+            content: "",
+            tool: fnCall.name,
+            args: fnCall.args as Record<string, unknown>,
+        };
+    }
+    return { type: "text", content: response.text() };
 }
