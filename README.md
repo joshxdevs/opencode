@@ -1,5 +1,7 @@
 # Opencode
 
+**Official Website:** [https://opencode.joshuapaul.site](https://opencode.joshuapaul.site)
+
 Opencode is a specialized, agentic Command Line Interface (CLI) tool designed to integrate Large Language Models (LLMs) directly into the local development workflow. Built with a focus on extensibility and provider abstraction, it allows developers to securely manage multiple API keys, inspect remote model capabilities, and run autonomous agentic loops with local filesystem and shell execution context.
 
 ## Architecture & Design
