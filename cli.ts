@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { Command } from "commander";
 import { agentCommand } from "./commands/agent";
 import { modelsCommand } from "./commands/models";

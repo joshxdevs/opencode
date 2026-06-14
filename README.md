@@ -45,17 +45,28 @@ sequenceDiagram
 ## Previews
 
 <div align="center">
-  <img src="preview.png" alt="Opencode CLI executing a file reading agent" width="80%" />
+  <img src="https://raw.githubusercontent.com/joshxdevs/opencode/main/preview.png" alt="Opencode CLI executing a file reading agent" width="80%" />
   <br />
-  <img src="preview-2.png" alt="Opencode models command listing available capabilities" width="80%" />
+  <img src="https://raw.githubusercontent.com/joshxdevs/opencode/main/preview-2.png" alt="Opencode models command listing available capabilities" width="80%" />
 </div>
 
 ## Installation
 
-### Prerequisites
-- [Bun](https://bun.sh/) (v1.0+)
+> **Note:** The npm sidebar shows `npm i @joshxdevs/opencode` — that is for installing as a library dependency. Since opencode is a CLI tool, always install it with the `-g` (global) flag as shown below.
 
-### Setup
+### Via npm (recommended)
+
+```bash
+npm install -g @joshxdevs/opencode
+```
+
+### Via Bun
+
+```bash
+bun add -g @joshxdevs/opencode
+```
+
+### From Source
 
 Clone the repository and install dependencies:
 
@@ -63,11 +74,6 @@ Clone the repository and install dependencies:
 git clone https://github.com/joshxdevs/opencode.git
 cd opencode
 bun install
-```
-
-Make the CLI globally accessible on your system:
-
-```bash
 bun link
 ```
 
