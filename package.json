@@ -1,14 +1,25 @@
 {
-  "name": "opencode",
-  "version": "0.1.0",
-  "description": "An AI coding agent CLI",
+  "name": "@joshxdevs/opencode",
+  "version": "0.1.4",
+  "description": "An agentic AI coding CLI that integrates LLMs directly into your local development workflow.",
   "type": "module",
-  "bin": {
-    "opencode": "./cli.ts"
+  "license": "MIT",
+  "homepage": "https://opencode.joshuapaul.site",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/joshxdevs/opencode.git"
   },
+  "bin": {
+    "opencode": "dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "scripts": {
     "dev": "bun cli.ts",
     "build": "bun build cli.ts --outdir dist --target node",
+    "prepublishOnly": "bun run build",
     "start": "node dist/cli.js"
   },
   "dependencies": {
