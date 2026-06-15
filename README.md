@@ -4,6 +4,8 @@
 
 Opencode is a specialized, agentic Command Line Interface (CLI) tool designed to integrate Large Language Models (LLMs) directly into the local development workflow. Built with a focus on extensibility and provider abstraction, it allows developers to securely manage multiple API keys, inspect remote model capabilities, and run autonomous agentic loops with local filesystem and shell execution context.
 
+> **Engineering notes →** [The Thinking Behind opencode](./DESIGN_DECISIONS.md) — a decision log covering *why* each design choice was made, the tradeoffs I accepted, and what I'd revisit.
+
 ## Architecture & Design
 
 The project is structured into three distinct layers to ensure modularity:
