@@ -129,4 +129,4 @@ bun cli.ts [command]
 
 ## License
 
-MIT
+This project is licensed under the MIT License
